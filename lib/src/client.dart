@@ -5,19 +5,27 @@ import 'package:http/http.dart' as http;
 import 'time_utils.dart';
 
 class Client {
+//  factory Client(String apiKey) {
+//    if (_instance != null) {
+//      return _instance;
+//    }
+//    _instance = Client._internal(apiKey);
+//    return _instance;
+//  }
   factory Client(String apiKey) {
-    if (_instance != null) {
-      return _instance;
+    if (_instances.containsKey(apiKey)) {
+      return _instances[apiKey];
     }
-    _instance = Client._internal(apiKey);
-    return _instance;
+    _instances[apiKey] = Client._internal(apiKey);
+    return _instances[apiKey];
   }
 
   Client._internal(this.apiKey);
 
   static const String apiUrl = 'https://api.amplitude.com/';
   static const String apiVersion = '2';
-  static Client _instance;
+//  static Client _instance;
+  static final Map<String, Client> _instances = {};
 
   final String apiKey;
 

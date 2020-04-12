@@ -13,8 +13,8 @@ class ServiceProvider {
       this.store}) {
     client = Client(apiKey);
     deviceInfo = DeviceInfo(getCarrierInfo);
-    session = Session(timeout);
-    store ??= Store();
+    session = Session(apiKey, timeout);
+    store ??= Store(dbFile: apiKey + '.db');
   }
 
   Client client;

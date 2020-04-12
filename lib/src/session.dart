@@ -2,12 +2,19 @@ import 'package:flutter/widgets.dart';
 import './time_utils.dart';
 
 class Session with WidgetsBindingObserver {
-  factory Session(int timeout) {
-    if (_instance != null) {
-      return _instance;
+//  factory Session(int timeout) {
+//    if (_instance != null) {
+//      return _instance;
+//    }
+//    _instance = Session._internal(timeout);
+//    return _instance;
+//  }
+  factory Session(String apiKey, int timeout) {
+    if (_instances.containsKey(apiKey)) {
+      return _instances[apiKey];
     }
-    _instance = Session._internal(timeout);
-    return _instance;
+    _instances[apiKey] = Session._internal(timeout);
+    return _instances[apiKey];
   }
 
   Session._internal(this.timeout) {
@@ -23,7 +30,8 @@ class Session with WidgetsBindingObserver {
     _time = time;
   }
 
-  static Session _instance;
+//  static Session _instance;
+  static final Map<String, Session> _instances = {};
   TimeUtils _time;
 
   int timeout;
